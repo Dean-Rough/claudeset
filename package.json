@@ -1,0 +1,57 @@
+{
+  "name": "claude-code-framework",
+  "version": "1.0.0",
+  "description": "Ultimate Claude Code workflow framework with YOLO mode",
+  "main": "cli/claude-cli.js",
+  "bin": {
+    "claude": "./cli/claude-cli.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint .",
+    "install-hooks": "sh hooks/install.sh",
+    "postinstall": "node scripts/post-install.js"
+  },
+  "dependencies": {
+    "commander": "^11.0.0",
+    "chalk": "^5.3.0",
+    "inquirer": "^9.2.0",
+    "fs-extra": "^11.2.0",
+    "ora": "^7.0.1",
+    "conf": "^12.0.0",
+    "glob": "^10.3.0",
+    "js-yaml": "^4.1.0",
+    "dotenv": "^16.3.1",
+    "simple-git": "^3.20.0",
+    "axios": "^1.6.0",
+    "semver": "^7.5.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.54.0",
+    "@types/node": "^20.10.0"
+  },
+  "keywords": [
+    "claude",
+    "ai",
+    "development",
+    "framework",
+    "workflow",
+    "automation",
+    "llm",
+    "yolo"
+  ],
+  "author": "Claude Code Framework Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dean-Rough/claudeset.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dean-Rough/claudeset/issues"
+  },
+  "homepage": "https://github.com/Dean-Rough/claudeset#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

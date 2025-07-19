@@ -1,0 +1,229 @@
+{
+  "experimental": {
+    "enabled": true,
+    "parallelToolCalls": true,
+    "adaptiveCardSupport": true,
+    "unlockAllFeatures": true
+  },
+  "env": {
+    "ANTHROPIC_CUSTOM_HEADERS": "anthropic-beta: interleaved-thinking-2025-05-14",
+    "MAX_THINKING_TOKENS": "30000",
+    "CLAUDE_EXPERIMENTAL_FEATURES": "true",
+    "CLAUDE_DISABLE_SAFETY_CHECKS": "development",
+    "PARALLEL_EXECUTION": "aggressive",
+    "YOLO_MODE": "ENGAGED"
+  },
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
+      "permissions": {
+        "read": true,
+        "write": true,
+        "delete": true,
+        "move": true,
+        "hidden": true,
+        "followSymlinks": true,
+        "directories": ["/"]
+      }
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "mcp-sequential-thinking"],
+      "permissions": {
+        "all": true,
+        "maxThoughts": 100,
+        "allowRevisions": true,
+        "allowBranching": true
+      }
+    },
+    "basic-memory": {
+      "command": "npx",
+      "args": ["-y", "@basicmachines/mcp-memory"],
+      "permissions": {
+        "all": true,
+        "unlimited": true
+      }
+    },
+    "graphiti": {
+      "command": "npx",
+      "args": ["-y", "@getzep/graphiti-mcp"],
+      "env": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "NEO4J_URI": "${NEO4J_URI}",
+        "NEO4J_USER": "${NEO4J_USER}",
+        "NEO4J_PASSWORD": "${NEO4J_PASSWORD}"
+      },
+      "permissions": {
+        "all": true
+      }
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@cloudflare/mcp-server-puppeteer"],
+      "permissions": {
+        "browserControl": true,
+        "screenshot": true,
+        "automation": true,
+        "headless": false,
+        "allowDangerousOperations": true
+      }
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git"],
+      "permissions": {
+        "read": true,
+        "write": true,
+        "commit": true,
+        "push": true,
+        "branch": true,
+        "merge": true,
+        "rebase": true,
+        "force": true
+      }
+    },
+    "exa-search": {
+      "command": "npx",
+      "args": ["-y", "@exa-labs/exa-mcp-server"],
+      "env": {
+        "EXA_API_KEY": "${EXA_API_KEY}"
+      },
+      "permissions": {
+        "all": true
+      }
+    },
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "@mendableai/firecrawl-mcp-server"],
+      "env": {
+        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
+      },
+      "permissions": {
+        "all": true
+      }
+    }
+  },
+  "tools": {
+    "enabled": [
+      "Task",
+      "Bash",
+      "Glob",
+      "Grep",
+      "LS",
+      "Read",
+      "Edit",
+      "MultiEdit",
+      "Write",
+      "NotebookRead",
+      "NotebookEdit",
+      "WebFetch",
+      "WebSearch",
+      "TodoWrite"
+    ],
+    "permissions": {
+      "bash": {
+        "enabled": true,
+        "maxTimeout": 600000,
+        "allowedCommands": "*",
+        "restrictedCommands": [],
+        "allowSudo": false,
+        "allowPipes": true,
+        "allowRedirection": true,
+        "allowBackgroundJobs": true
+      },
+      "fileSystem": {
+        "allowedPaths": ["*"],
+        "restrictedPaths": [],
+        "maxFileSize": "1GB",
+        "allowHiddenFiles": true,
+        "allowSystemFiles": true,
+        "followSymlinks": true
+      },
+      "web": {
+        "allowedDomains": ["*"],
+        "blockedDomains": [],
+        "maxRequestSize": "100MB",
+        "timeout": 60000,
+        "allowInsecure": true,
+        "followRedirects": true
+      },
+      "task": {
+        "maxConcurrent": 20,
+        "allowRecursive": true,
+        "maxDepth": 10,
+        "autoParallelize": true
+      }
+    }
+  },
+  "advanced": {
+    "contextWindow": {
+      "warningThreshold": 0.8,
+      "criticalThreshold": 0.95,
+      "autoCompact": true,
+      "preserveActiveTask": true,
+      "aggressiveCompaction": true
+    },
+    "parallelization": {
+      "enabled": true,
+      "maxWorkers": 16,
+      "batchSize": 10,
+      "autoScale": true,
+      "priorityQueue": true
+    },
+    "caching": {
+      "enabled": true,
+      "ttl": 7200,
+      "maxSize": "5GB",
+      "persistentCache": true,
+      "cacheLocation": ".claude-cache"
+    },
+    "hooks": {
+      "enabled": true,
+      "allowCustom": true,
+      "autoInstall": true,
+      "runAsynchronous": true
+    },
+    "monitoring": {
+      "enabled": true,
+      "logLevel": "debug",
+      "metricsCollection": true,
+      "performanceProfiling": true
+    }
+  },
+  "yolo": {
+    "confirmations": {
+      "skipAll": true,
+      "autoYes": true,
+      "suppressWarnings": false,
+      "showRiskyOperations": true
+    },
+    "execution": {
+      "immediateMode": true,
+      "batchOperations": true,
+      "parallelByDefault": true,
+      "aggressiveOptimization": true,
+      "skipValidation": false
+    },
+    "experimental": {
+      "enableUnstableFeatures": true,
+      "betaTools": true,
+      "allowUnsafeOperations": true,
+      "unlockHiddenCommands": true,
+      "enableDebugMode": true
+    },
+    "overrides": {
+      "maxTokensPerRequest": 200000,
+      "disableRateLimiting": true,
+      "bypassSafetyChecks": false,
+      "allowSystemModification": true
+    }
+  },
+  "claude": {
+    "autoRecovery": true,
+    "sessionPersistence": true,
+    "intelligentRetries": true,
+    "adaptiveBehavior": true,
+    "learningMode": true
+  }
+}

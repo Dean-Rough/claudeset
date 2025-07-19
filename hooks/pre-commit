@@ -1,0 +1,25 @@
+#!/bin/sh
+# Claude Code Framework - Pre-commit Hook
+# Updates memory bank before committing
+
+echo "Claude Code: Updating memory bank..."
+
+# Update timestamp in activeContext.md
+if [ -f "memory-bank/activeContext.md" ]; then
+    echo "\n## Last commit: $(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> memory-bank/activeContext.md
+    git add memory-bank/activeContext.md
+fi
+
+# Update progress if PLAN.md has changed
+if git diff --cached --name-only | grep -q "PLAN.md"; then
+    echo "Claude Code: PLAN.md changed, updating progress..."
+    # Count completed tasks
+    if [ -f "PLAN.md" ] && [ -f "memory-bank/progress.md" ]; then
+        completed=$(grep -c "\[x\]" PLAN.md || echo "0")
+        total=$(grep -c "\[[ x]\]" PLAN.md || echo "0")
+        echo "\n## Progress Update: $completed/$total tasks ($(date -u +"%Y-%m-%dT%H:%M:%SZ"))" >> memory-bank/progress.md
+        git add memory-bank/progress.md
+    fi
+fi
+
+echo "Claude Code: Memory bank updated"

@@ -1,0 +1,17 @@
+#!/bin/sh
+# Claude Code Framework - Post-checkout Hook
+# Reminds to restore context after branch switch
+
+echo "
+╔════════════════════════════════════════╗
+║     Claude Code Context Reminder       ║
+╠════════════════════════════════════════╣
+║  You've switched branches!             ║
+║                                        ║
+║  Remember to run:                      ║
+║  claude session start --restore-context║
+║                                        ║
+║  This will load the memory bank for    ║
+║  your current branch.                  ║
+╚════════════════════════════════════════╝
+"
