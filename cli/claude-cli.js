@@ -1,7 +1,14 @@
 #!/usr/bin/env node
 
 const { Command } = require('commander');
-const chalk = require('chalk');
+// const chalk = require('chalk');
+const chalk = {
+  cyan: { bold: (s) => s },
+  yellow: { bold: (s) => s },
+  green: (s) => s,
+  red: (s) => s,
+  gray: (s) => s
+};
 const { version } = require('../package.json');
 
 const program = new Command();
@@ -42,9 +49,8 @@ program
   });
 
 program
-  .command('session')
-  .description('Manage Claude Code sessions')
-  .argument('<action>', 'Action to perform (start|end|status)')
+  .command('session <action>')
+  .description('Manage Claude Code sessions (start|end|status)')
   .option('--restore-context', 'Restore context from memory bank')
   .option('--update-memory', 'Update memory files on end')
   .option('--commit', 'Create git commit on end')
@@ -54,9 +60,8 @@ program
   });
 
 program
-  .command('context')
-  .description('Manage context and memory')
-  .argument('[action]', 'Action to perform (status|compact|reset)')
+  .command('context [action]')
+  .description('Manage context and memory (status|compact|reset)')
   .option('--warn-threshold <percent>', 'Warning threshold', '50')
   .option('--preserve-current', 'Preserve current task on compact')
   .option('--force', 'Force action without confirmation')
@@ -76,9 +81,8 @@ program
   });
 
 program
-  .command('task')
-  .description('Task management')
-  .argument('[action]', 'Action (next|list|complete)')
+  .command('task [action]')
+  .description('Task management (next|list|complete)')
   .option('--auto-review', 'Show review checklist')
   .option('--test-first', 'Enforce TDD')
   .action((action, options) => {
@@ -86,9 +90,8 @@ program
   });
 
 program
-  .command('review')
-  .description('Cross-check code or plans with external AI')
-  .argument('[target]', 'What to review (plan|code|all)')
+  .command('review [target]')
+  .description('Cross-check code or plans with external AI (plan|code|all)')
   .option('--ai <provider>', 'AI provider (gemini|gpt4|claude)', 'gemini')
   .option('--security', 'Include security review')
   .option('--performance', 'Include performance review')
@@ -106,9 +109,8 @@ program
   });
 
 program
-  .command('config')
-  .description('Manage Claude Code configuration')
-  .argument('[action]', 'Action (show|set|reset)')
+  .command('config [action]')
+  .description('Manage Claude Code configuration (show|set|reset)')
   .option('--key <key>', 'Configuration key')
   .option('--value <value>', 'Configuration value')
   .option('--global', 'Apply globally')
@@ -120,7 +122,7 @@ if (process.argv.includes('--yolo')) {
   console.log(chalk.yellow.bold('⚡ YOLO MODE ACTIVATED - All safeties disengaged! ⚡\n'));
 }
 
-program.parse();
+program.parse(process.argv);
 
 if (!process.argv.slice(2).length) {
   program.outputHelp();

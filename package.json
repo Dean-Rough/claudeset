@@ -9,8 +9,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
-    "install-hooks": "sh hooks/install.sh",
-    "postinstall": "node scripts/post-install.js"
+    "install-hooks": "sh hooks/install.sh"
   },
   "dependencies": {
     "commander": "^11.0.0",
